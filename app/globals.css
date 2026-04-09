@@ -1,26 +1,96 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-primary: #0d52a5;
+  --color-bauhaus-yellow: #FFCD00;
+  --color-bauhaus-red: #E00025;
+  --color-bauhaus-black: #0F0F0F;
+  --color-bauhaus-bg: #F4F4F0;
+  --color-background-light: #f6f7f8;
+  --color-text-main: #111418;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-heading: var(--font-jost), sans-serif;
+  --font-body: var(--font-space-mono), monospace;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --shadow-hard: 4px 4px 0px #0F0F0F;
+  --shadow-hard-hover: 6px 6px 0px #0F0F0F;
+  --shadow-hard-drag: 12px 12px 0px #0d52a5;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F4F4F0;
+  color: #0F0F0F;
+  overflow-x: hidden;
+}
+
+/* Brutalist border */
+.brutalist-border {
+  border: 3px solid #0F0F0F;
+}
+
+/* Thick border helpers */
+.border-b-thick { border-bottom-width: 3px; }
+.border-t-thick { border-top-width: 3px; }
+.border-l-thick { border-left-width: 3px; }
+.border-r-thick { border-right-width: 3px; }
+.border-thick   { border-width: 3px; }
+
+/* Custom Bauhaus checkbox */
+.bauhaus-checkbox {
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid #111418;
+  border-radius: 0.125rem;
+  background-color: white;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.bauhaus-checkbox:checked {
+  background-color: #0d52a5;
+  border-color: #0d52a5;
+}
+
+.bauhaus-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.bauhaus-checkbox:focus-visible {
+  outline: 2px solid #0d52a5;
+  outline-offset: 2px;
+}
+
+/* Result card */
+.result-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+/* Kanban scrollbar */
+.kanban-scroll::-webkit-scrollbar { height: 12px; }
+.kanban-scroll::-webkit-scrollbar-track {
+  background: #F4F4F0;
+  border-top: 3px solid #0F0F0F;
+}
+.kanban-scroll::-webkit-scrollbar-thumb {
+  background-color: #0F0F0F;
+  border: 3px solid #F4F4F0;
+  border-radius: 0;
 }
