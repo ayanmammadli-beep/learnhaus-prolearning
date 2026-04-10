@@ -2,6 +2,8 @@ import Anthropic from '@anthropic-ai/sdk'
 import Database from 'better-sqlite3'
 import path from 'path'
 
+export const maxDuration = 60
+
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 interface Activity {
