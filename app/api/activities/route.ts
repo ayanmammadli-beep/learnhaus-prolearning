@@ -1,17 +1,18 @@
-import Database from 'better-sqlite3'
-import path from 'path'
+import { ACTIVITIES } from '@/lib/activities'
 
 export async function GET() {
-  const db = new Database(path.resolve(process.cwd(), 'data', 'activities.db'), { readonly: true })
-  const activities = db.prepare('SELECT * FROM activities').all()
-  const count = (db.prepare('SELECT COUNT(*) as n FROM activities').get() as { n: number }).n
-  const types = (db.prepare("SELECT type, COUNT(*) as count FROM activities GROUP BY type ORDER BY count DESC").all()) as { type: string; count: number }[]
-  db.close()
+  const breakdown: Record<string, number> = {}
+  for (const a of ACTIVITIES) {
+    breakdown[a.type] = (breakdown[a.type] ?? 0) + 1
+  }
+  const breakdown_by_type = Object.entries(breakdown)
+    .map(([type, count]) => ({ type, count }))
+    .sort((a, b) => b.count - a.count)
 
   return Response.json({
-    total: count,
+    total: ACTIVITIES.length,
     schema: {
-      id: 'INTEGER PRIMARY KEY — auto-increment',
+      id: 'INTEGER — unique identifier',
       title: 'TEXT — activity name',
       provider: 'TEXT — organization offering the activity',
       type: 'TEXT — course | certificate | hackathon | community | volunteering | meetup | professional association',
@@ -25,7 +26,7 @@ export async function GET() {
       location: 'TEXT — geographic location or "Remote"',
       freshness: 'TEXT — YYYY-MM-DD of last manual verification',
     },
-    breakdown_by_type: types,
-    activities,
+    breakdown_by_type,
+    activities: ACTIVITIES,
   })
 }
