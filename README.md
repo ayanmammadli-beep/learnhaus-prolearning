@@ -1,4 +1,4 @@
-# ProLearner — LearnHaus AI ProLearning Discovery Engine
+# ProLearner: LearnHaus AI ProLearning Discovery Engine
 
 ## What I Built
 
