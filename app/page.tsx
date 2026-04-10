@@ -195,7 +195,6 @@ export default function Home() {
       })
       if (!res.ok) throw new Error('Search failed')
       if (!res.body) throw new Error('No response body')
-      setPhase('done')
 
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
@@ -221,6 +220,7 @@ export default function Home() {
               setSelectedCosts(new Set(newActs.map((a: Activity) => a.cost).filter(Boolean)))
               setSelectedTypes(new Set(newActs.map((a: Activity) => a.type).filter(Boolean)))
               setSelectedEligibilities(new Set(newActs.map((a: Activity) => a.eligibility).filter(Boolean)))
+              setPhase('done')
             } else if (event.type === 'error') {
               setErrorMsg(event.message)
               setPhase('error')
